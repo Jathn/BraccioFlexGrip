@@ -1,4 +1,5 @@
 # Braccio - FlexGrip
+![image](https://github.com/Jathn/BraccioFlexGrip/assets/124161756/423e39ca-f6d2-402e-9c37-b9a9a2bf7563)
 
 ## Overview
 
