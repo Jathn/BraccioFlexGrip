@@ -3,22 +3,12 @@
 
 ## Overview
 
-Briefly introduce the project, its purpose, and the problem it aims to solve. Explain why BraccioFlexGrip is unique or essential.
+The idea of this library is to introduce features to the braccio that enable out-of-the-box abilities with ease. This should make integration with computer vision and/or AI possible without first going into the details of inverse kinematics etc.
 
 ## Features
 
-List the key features and functionalities of BraccioFlexGrip. Provide a clear understanding of what users can expect from the project.
+TBC
 
 ## Getting Started
 
-Provide step-by-step instructions on how to get started with BraccioFlexGrip. Include any prerequisites, installation steps, and configuration details.
-
-```bash
-# Installation
-$ npm install braccioflexgrip
-
-# Usage
-import { BraccioFlexGrip } from 'braccioflexgrip';
-
-const myArm = new BraccioFlexGrip();
-myArm.activate();
+TBC
