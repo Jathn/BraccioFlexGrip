@@ -76,6 +76,49 @@ bool RobotController::angleBoundariesCheck(const int angles[6]) {
   return true;
 }
 
+const int (&calculateAngles(const double& x, const double& y, const double& z))[3] {
+    static int angles[3];
+
+    double D = sqrt(pow(x,2) + pow(y,2));
+    double d = D - L3;
+    double z_offset = z - shoulder_offset;
+    double R = sqrt(pow(d,2) + pow(z_offset,2));
+    double alpha_1 = (acos(d/R))*(180.00/PI);
+    double alpha_2 = (acos((pow(L2,2) + pow(R,2) - pow(L2,2))/(2*L1*R)))*(180.00/PI);
+    double theta_1;
+    double theta_2 = ((acos((pow(L1,2) + pow(L2,2) - pow(R,2))/(2*L1*L2)))*(180.00/PI));
+    double theta_3;
+
+    if (z >= shoulder_offset) {
+        theta_1 = (alpha_1 + alpha_2); //theta 1
+        theta_3 = 180.00 - ((180.00 - (alpha_2 + theta_2)) - alpha_1); //theta 3
+    } else {
+        theta_1 = (alpha_2 - alpha_1); //theta 1
+        theta_3 = 180.00 - ((180.00 - (alpha_2 + theta_2)) + alpha_1); //theta 3
+    }
+
+    angles[0] = static_cast<int>(theta_1);
+    angles[1] = static_cast<int>(theta_2);
+    angles[2] = static_cast<int>(theta_3);
+
+    return angles;
+}
+
+void assignCoordinate(const double& x, const double& y, const double& z) {
+  int thetas[3];
+  
+  moveBaseToCoordinate(x, y, z);
+  const int (&result)[3] = calculateAngles(x, y, z);
+  for (int i = 0; i < 3; ++i) {
+    thetas[i] = result[i];
+    Serial.print("Theta ");
+    Serial.println(i + 1);
+    Serial.println(thetas[i]);
+  }
+  assignAngles(current_angles[0], thetas[0], thetas[1], thetas[2], current_angles[4], current_angles[5]);
+
+}
+
 void RobotController::assignAngles(const int& M1_angle, const int& M2_angle, const int& M3_angle, const int& M4_angle, const int& M5_angle, const int& M6_angle) {
   bool run = true;
   const int new_angles[6] = {M1_angle, M2_angle, M3_angle, M4_angle, M5_angle, M6_angle};
